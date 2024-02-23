@@ -28,6 +28,11 @@ def show_account(request):
     return Response(account)
 
 
+@api_view(['GET'])
+def list_friends(request):
+    return Response([{"name": f, "owed": account.get(f)} for f in account])
+
+
 @api_view(['POST'])
 def recieve_order(request):
     friend = request.data.get('friend')
