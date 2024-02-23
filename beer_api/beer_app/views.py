@@ -70,15 +70,23 @@ def pay_bill(request):
         return Response({"message": "Friend not found."}, status=status.HTTP_404_NOT_FOUND)
 
     # Check if the bill is going to be split evenly
-    if split_bill:
+    owed = account.values()
+    even_owed = [owed[0]]*len(owed) == owed
+
+    if split_bill and not even_owed:
         total_due = sum(account.values())
         even_amount = total_due / len(account)
         for f in account:
             account[f] = even_amount
 
+    # Pay given amount and discountted on the account
     if account[friend] >= amount:
         account[friend] -= amount
     else:
-        return Response({"message": "Amount exceeds owed account."}, status=status.HTTP_409_CONFLICT)
+        return Response({
+            "message": "Amount exceeds owed account."
+        },
+            status=status.HTTP_409_CONFLICT
+        )
 
     return Response({"message": f"{friend} paid {amount}, owed {account[friend]}"})
