@@ -9,6 +9,7 @@ export const fetchData = async (endpoint: string) => {
         });
         return data;
     } catch (err) {
+        console.error(err);
         return null;
     }
 };
@@ -21,7 +22,7 @@ export const postData = async (endpoint: string, body: any) => {
                 'Content-Type': 'application/json',
             },
         });
-        return data.data;
+        return data;
     } catch (err) {
         console.error(err);
         return null;

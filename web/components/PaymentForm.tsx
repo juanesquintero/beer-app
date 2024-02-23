@@ -5,11 +5,12 @@ import { useState, ChangeEvent } from "react";
 
 interface PaymentFormProps {
   friends: Friend[];
+  reFetch: () => void;
 }
 
-const PaymentForm: React.FC<PaymentFormProps> = ({ friends }) => {
+const PaymentForm: React.FC<PaymentFormProps> = ({ friends, reFetch }) => {
   const [selectedFriend, setSelectedFriend] = useState<string>("");
-  const [amount, setAmount] = useState<string>("");
+  const [amount, setAmount] = useState<number>(0);
   const [splitAccount, setSplitAccount] = useState<boolean>(false);
 
   const handlePayment: React.MouseEventHandler<HTMLButtonElement> = async (
@@ -18,12 +19,16 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ friends }) => {
     e.preventDefault();
     const response = await postData("/pay/", {
       friend: selectedFriend,
-      amount: parseFloat(amount),
+      amount: amount,
       split: splitAccount,
     });
 
-    if (response?.ok) {
+    if (response) {
       alert("Payment successful");
+      setSelectedFriend("");
+      setAmount(0);
+      setSplitAccount(false);
+      reFetch();
     } else {
       alert("Payment failed");
     }
@@ -44,18 +49,19 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ friends }) => {
         {friends?.map((friend) => (
           <option key={friend.name} value={friend.name}>
             {friend?.name}
+            {` $(${friend?.owed})`}
           </option>
         ))}
       </select>
       <div className="flex justify-star w-full max-w-xs items-center">
-        $ 
+        $
         <input
           className="bg-gray-50 border rounded-lg block p-2.5 my-2.5 ml-2"
           type="number"
           placeholder="$ Amount to pay"
           value={amount}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setAmount(e.target.value)
+            setAmount(parseFloat(e?.target?.value ?? "0"))
           }
         />
       </div>
@@ -63,10 +69,10 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ friends }) => {
         <input
           type="checkbox"
           className="w-4 h-4 rounded m-2"
-          value={splitAccount ? "checked" : ""}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setSplitAccount(e.target?.value === "checked")
-          }
+          value={String(splitAccount)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            setSplitAccount(e?.target?.checked);
+          }}
         />
         <label className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
           Split the bill evenly
