@@ -17,9 +17,7 @@ beers = [
 
 @api_view(['GET'])
 def list_beers(request):
-    beers = Beer.objects.all()
-    serializer = BeerSerializer(beers, many=True)
-    return Response(serializer.data)
+    return Response(beers)
 
 
 @api_view(['GET'])
