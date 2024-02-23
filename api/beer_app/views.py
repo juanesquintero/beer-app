@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 # Save beers, orders, account in memory for simplicity
 orders = []
-account = {"John": 0, "Robert": 0, "Mary": 0}
+account = {"John": 7.98, "Robert": 1.99, "Mary": 7.97}
 beers = [
     {"id": 1, "name": "Corona", "price": 3.99},
     {"id": 2, "name": "Budweiser", "price": 2.99},
@@ -89,6 +89,7 @@ def pay_bill(request):
     # Pay given amount and discountted on the account
     if account[friend] >= amount:
         account[friend] -= amount
+        account[friend] = round(account[friend], 2)
     else:
         return Response({
             "message": "Amount exceeds owed account."
