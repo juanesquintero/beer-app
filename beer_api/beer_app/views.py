@@ -54,9 +54,9 @@ def recieve_order(request):
             "total": total,
         })
 
-        return Response({"message": "Order received successfully."}, status=201)
+        return Response({"message": "Order received successfully."}, status=status.HTTP_201_CREATED)
 
-    return Response({"message": "Beer not found."}, status=404)
+    return Response({"message": "Beer not found."}, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['POST'])
@@ -67,7 +67,7 @@ def pay_bill(request):
 
     # Check if friend exists
     if not friend in account:
-        return Response({"message": "Friend not exists in account"}, status=404)
+        return Response({"message": "Friend not found."}, status=status.HTTP_404_NOT_FOUND)
 
     # Check if the bill is going to be split evenly
     if split_bill:
@@ -75,10 +75,10 @@ def pay_bill(request):
         even_amount = total_due / len(account)
         for f in account:
             account[f] = even_amount
+
+    if account[friend] >= amount:
+        account[friend] -= amount
     else:
-        if account[friend] >= amount:
-            account[friend] -= amount
-        else:
-            return Response({"message": "Amount exceeds owed account"}, status=400)
+        return Response({"message": "Amount exceeds owed account."}, status=status.HTTP_409_CONFLICT)
 
     return Response({"message": f"{friend} paid {amount}, owed {account[friend]}"})
