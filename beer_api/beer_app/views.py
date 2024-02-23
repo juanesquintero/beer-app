@@ -20,3 +20,13 @@ def list_beers(request):
 @api_view(['GET'])
 def get_account(request):
     return Response(accounts)
+
+
+@api_view(['POST'])
+def receive_order(request):
+    return {}
+
+
+@api_view(['POST'])
+def pay_bill(request):
+    return {}
