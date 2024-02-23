@@ -13,13 +13,14 @@ export default function Home() {
       const data = await fetchData("/friends/");
       setFriends(data);
     };
-
     getFriends();
   }, []);
   return (
-    <div>
-      <h1>Payment Interface</h1>
-      <PaymentForm friends={friends ?? []} />
-    </div>
+    <section className="w-full h-full mt-4 mb-8 p-5 m-5">
+      <h1 className="mb-4 text-4xl font-extrabold leading-none">
+        Payment Interface
+      </h1>
+      <PaymentForm friends={friends} />
+    </section>
   );
 }

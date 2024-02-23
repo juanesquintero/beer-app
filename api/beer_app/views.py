@@ -76,7 +76,7 @@ def pay_bill(request):
         return Response({"message": "Friend not found."}, status=status.HTTP_404_NOT_FOUND)
 
     # Check if the owed account is even for each friend
-    owed = account.values()
+    owed = list(account.values())
     even_owed = [owed[0]]*len(owed) == owed
 
     # Check if the bill is going to be split evenly
