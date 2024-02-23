@@ -1,12 +1,37 @@
-version: '3.8'
+name: beer
+version: "3.8"
 
 services:
   api:
-    build: .
+    container_name: beer-api
+    image: beer-api_dev:1.0.0
+    build:
+      context: ./api/
+      target: development
+      dockerfile: ./Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app
+      - ./api:/app
     ports:
       - "8000:8000"
     environment:
       - DEBUG=1
+
+  web:
+    container_name: beer-web
+    restart: on-failure
+    image: beer-web_dev:1.0.0
+    build:
+      context: ./web/
+      target: development
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./web/.env
+    ports:
+      - 3000:3000
+    volumes:
+      - ./web:/usr/code
+      - /usr/code/node_modules
+    depends_on:
+      - api
+    command: npx next dev -H 0.0.0.0 -p 3000
