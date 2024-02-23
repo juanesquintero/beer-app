@@ -1,8 +1,6 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Beer
-from .serializers import BeerSerializer
 
 
 # Save beers, orders, account in memory for simplicity
@@ -31,7 +29,7 @@ def show_account(request):
 
 
 @api_view(['POST'])
-def order(request):
+def recieve_order(request):
     friend = request.data.get('friend')
     beer_id = request.data.get('beer_id')
     quantity = request.data.get('quantity', 1)
@@ -63,4 +61,24 @@ def order(request):
 
 @api_view(['POST'])
 def pay_bill(request):
-    return Response({})
+    friend = request.data.get('friend')
+    amount = request.data.get('amount')
+    split_bill = request.data.get('splitEvenly', False)
+
+    # Check if friend exists
+    if not friend in account:
+        return Response({"message": "Friend not exists in account"}, status=404)
+
+    # Check if the bill is going to be split evenly
+    if split_bill:
+        total_due = sum(account.values())
+        even_amount = total_due / len(account)
+        for f in account:
+            account[f] = even_amount
+    else:
+        if account[friend] >= amount:
+            account[friend] -= amount
+        else:
+            return Response({"message": "Amount exceeds owed account"}, status=400)
+
+    return Response({"message": f"{friend} paid {amount}, owed {account[friend]}"})
