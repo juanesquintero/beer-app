@@ -43,6 +43,7 @@ def recieve_order(request):
         # Update the friend's account
         if friend in account:
             account[friend] += total
+        # Create a new friend account
         else:
             account[friend] = total
 
@@ -69,10 +70,11 @@ def pay_bill(request):
     if not friend in account:
         return Response({"message": "Friend not found."}, status=status.HTTP_404_NOT_FOUND)
 
-    # Check if the bill is going to be split evenly
+    # Check if the owed account is even for each friend
     owed = account.values()
     even_owed = [owed[0]]*len(owed) == owed
 
+    # Check if the bill is going to be split evenly
     if split_bill and not even_owed:
         total_due = sum(account.values())
         even_amount = total_due / len(account)
