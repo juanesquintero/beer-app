@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 # Save beers, orders, account in memory for simplicity
 orders = []
-account = {"John": 0, "Robert": 0, "Mary": 0}
+account = {"John": 7.98, "Robert": 1.99, "Mary": 7.97}
 beers = [
     {"id": 1, "name": "Corona", "price": 3.99},
     {"id": 2, "name": "Budweiser", "price": 2.99},
@@ -26,6 +26,11 @@ def list_orders(request):
 @api_view(['GET'])
 def show_account(request):
     return Response(account)
+
+
+@api_view(['GET'])
+def list_friends(request):
+    return Response([{"name": f, "owed": account.get(f)} for f in account])
 
 
 @api_view(['POST'])
@@ -71,7 +76,7 @@ def pay_bill(request):
         return Response({"message": "Friend not found."}, status=status.HTTP_404_NOT_FOUND)
 
     # Check if the owed account is even for each friend
-    owed = account.values()
+    owed = list(account.values())
     even_owed = [owed[0]]*len(owed) == owed
 
     # Check if the bill is going to be split evenly
@@ -84,6 +89,7 @@ def pay_bill(request):
     # Pay given amount and discountted on the account
     if account[friend] >= amount:
         account[friend] -= amount
+        account[friend] = round(account[friend], 2)
     else:
         return Response({
             "message": "Amount exceeds owed account."
