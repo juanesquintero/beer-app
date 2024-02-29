@@ -28,7 +28,7 @@ $ docker-compose up -d
 
 ---
 
-Although you can run it with the following command locally having Python 3.12 and Node 21 installed
+Although you can run it with the following command locally having `Python 3.12` and `Node 21` installed
 
 `/web`
 ```
@@ -45,8 +45,9 @@ $ python manage.py runserver
 
 This both commands will start the front-end and back-end for the whole project.
 
-React UI (Next.js) on http://localhost:3000
-Python API (DJango) on http://localhost:8000
+React UI (Next.js 14.1) on http://localhost:3000
+
+Python API (Django 5.0) on http://localhost:8000
 
 
 
