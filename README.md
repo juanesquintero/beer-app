@@ -7,11 +7,14 @@ The project is a mono repo and contains 2 apps; the Next.js Web front-end and Dj
 
 
 ### Clone Repo
-```
+
+```bash
 $ git clone https://github.com/juanesquintero/beer-app.git
 ```
+
 or via SSH
-```
+
+```bash
 $ git clone git@github.com:juanesquintero/beer-app.git
 ```
 
@@ -22,28 +25,30 @@ Docker helps us to remove the os dependencies on software development this is wh
 
 After having Docker and Docker Compose Installed please notice that we have a docker-compose.yml that defines the running parameters for the respective containers needed, you just need to run one unique command:
 
-```
+```bash
 $ docker-compose up -d
-````
+```
 
 ---
 
 Although you can run it with the following command locally having `Python 3.12` and `Node 21` installed
 
 `/web`
-```
+
+```bash
 $ npm i
 $ npm run dev
-````
+```
 
 `/api`
-```
+
+```bash
 $ pip install -r requirements.txt
 $ python manage.py runserver
-````
+```
 
 
-This both commands will start the front-end and back-end for the whole project.
+These both commands will start the front-end (web) and back-end (api) for the whole project.
 
 React UI (Next.js 14.1) on http://localhost:3000
 
@@ -51,8 +56,7 @@ Python API (Django 5.0) on http://localhost:8000
 
 
 
-## Teck Stack
+## Tech Stack
 
-I decided to use the latest stable versions of the frameworks (Next.js 14.1) (React 18) and (Django 5.0.2
-Restframework 3.14), related to languages and supersets (Typescript 5.0) (Python 3.12), to benefit from the latest features and fixes.
+This project uses the latest stable versions of the frameworks `(Next.js 14.1 - React 18)` and `(Django 5.0.2 - RestFramework 3.14)`, with the following languages/supersets `(Typescript 5.0)` and `(Python 3.12)`, to benefit from the latest features and fixes of all of those.
 
