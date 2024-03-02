@@ -1,7 +1,6 @@
 # Beer APP
 
-The BeerApp is a web application where you can order and pay beers for friends that are sharing the same table.
-The project is a mono repo and contains 2 apps; the Next.js Web front-end and Django API back-end.
+The BeerApp is a web application where you can order and pay for beers for friends who are sharing the same table. The project is a mono-repo and contains 2 apps: the Next.js Web front-end and the Django API back-end.
 
 ## Getting started
 
@@ -21,7 +20,7 @@ $ git clone git@github.com:juanesquintero/beer-app.git
 
 ## Run it
 
-Docker helps us to remove the os dependencies on software development this is why we use it here, please install it to run this project https://docs.docker.com/engine/install/
+Docker helps us to remove the OS dependencies on software development This is why we use it here, Please install it to run this project: https://docs.docker.com/engine/install/
 
 After having Docker and Docker Compose Installed please notice that we have a docker-compose.yml that defines the running parameters for the respective containers needed, you just need to run one unique command:
 
@@ -31,7 +30,7 @@ $ docker-compose up -d
 
 ---
 
-Although you can run it with the following command locally having `Python 3.12` and `Node 21` installed
+Although you can run it with the following command locally having `Python 3.12` and `Node 21` installed,
 
 `/web`
 
@@ -47,8 +46,7 @@ $ pip install -r requirements.txt
 $ python manage.py runserver
 ```
 
-
-These both commands will start the front-end (web) and back-end (api) for the whole project.
+These commands will start the whole project's front-end (web) and back-end (api).
 
 React UI (Next.js 14.1) on http://localhost:3000
 
