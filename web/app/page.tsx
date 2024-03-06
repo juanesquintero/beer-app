@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Friend } from "@/shared/types";
 import PaymentForm from "../components/PaymentForm";
 import { fetchData } from "@/shared/helpers";

@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 import { postData } from "@/shared/helpers";
 import { Friend } from "@/shared/types";
 import { useState, ChangeEvent } from "react";
