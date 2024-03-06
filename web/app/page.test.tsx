@@ -1,10 +1,11 @@
+import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Home from './page';
 import { fetchData } from '@/shared/helpers';
 
 // Mock the fetchData function
-jest.mock('@/shared/helpers', () => ({
+jest.mock('../shared/helpers', () => ({
   fetchData: jest.fn(),
 }));
 
