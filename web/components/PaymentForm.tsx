@@ -48,7 +48,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ friends, reFetch }) => {
           Select a friend
         </option>
         {friends?.map((friend) => (
-          <option key={friend.name} value={friend.name}>
+          <option key={friend.name} value={friend.name} data-testid={friend.name}>
             {friend?.name}
             {` $(${friend?.owed})`}
           </option>
